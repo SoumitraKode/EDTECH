@@ -53,19 +53,20 @@ export function login(email, password, navigate) {
           throw new Error(response.data.message)
         }
   
-        toast.success("Login Successful")
-        dispatch(setToken(response.data.token))
-        const userImage = response.data?.user?.image
-          ? response.data.user.image
-          : `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.user.firstName} ${response.data.user.lastName}`
-        dispatch(setUser({ ...response.data.user, image: userImage }))
+        
+        dispatch(setToken(response.data.token)) ;
+        const userImage = response.data?.prev_User?.image
+          ? response.data.prev_User.image
+          : `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.prev_User.FirstName} ${response.data.prev_User.LastName}`
+        dispatch(setUser({ ...response.data.prev_User, image: userImage }))
         localStorage.setItem("token", JSON.stringify(response.data.token))
-        navigate("/dashboard/my-profile")
+        toast.success("Login Successful") ;
+        navigate("/dashboard/my-profile") ;
       } catch (error) {
         console.log("LOGIN API ERROR............", error)
         toast.error("Login Failed")
       }
-      dispatch(setLoading(false))
+      dispatch(setLoading(false)) ;
       // toast.dismiss(toastId)
     }
   }
@@ -157,7 +158,7 @@ export function resetPassword(password,confirmPassword,token,navigate){
         }
         console.log("Password updated successfully : ") ;
         toast.success("Password Updated successfully") ;
-      
+        
       } catch (error) {
         console.log("Error in Updating Password............", error)
         toast.error("Update Password failed")
