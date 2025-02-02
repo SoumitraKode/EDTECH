@@ -164,7 +164,7 @@ export function resetPassword(password,confirmPassword,token,navigate){
     
         console.log("Update Password Response ...",response) ;
     
-        if(response.data.error){
+        if(!response.data.success){
           throw new Error(response.data.message) ;
         }
         console.log("Password updated successfully : ") ;

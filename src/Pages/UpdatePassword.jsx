@@ -29,6 +29,7 @@ const UpdatePassword = () => {
     const onSubmitHandeler = (e)=>{
         e.preventDefault() ;
         const token = location.pathname.split('/').at(-1) ;
+        console.log("token : ",token) ;
         dispatch(resetPassword(password,confirmPassword,token,navigate)) ;
     }
 return (
@@ -40,7 +41,7 @@ return (
             <h1>Choose New Password</h1>
       <p>Almost done. Enter your new password and youre all set.</p>
 
-      <form action={onSubmitHandeler}>
+      <form onSubmit={onSubmitHandeler}>
         <label >
             <p>New Password*</p>
             <input type={
