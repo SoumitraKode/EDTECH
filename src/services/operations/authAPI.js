@@ -54,7 +54,7 @@ export function login(email, password, navigate) {
         }
   
         
-        dispatch(setToken(response.data.token)) ;
+        dispatch(setToken(response.data.token)) ; 
         const userImage = response.data?.prev_User?.image
           ? response.data.prev_User.image
           : `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.prev_User.FirstName} ${response.data.prev_User.LastName}`
@@ -111,7 +111,18 @@ export function signUp(
       toast.dismiss(toastId)
     }
   }
-
+  // Logout == >
+  export function logout(navigate) {
+    return (dispatch) => {
+      dispatch(setToken(null)) ; 
+      dispatch(setUser(null)) ;
+      // dispatch(resetCart())
+      localStorage.removeItem("token")
+      localStorage.removeItem("user")
+      toast.success("Logged Out")
+      navigate("/") ;
+    }
+  }
 //reset-password-token
 export function resetPasswordToken(email,setEmailSent,navigate){
   // const toastId = toast.loading("Loading...") ;

@@ -10,6 +10,7 @@ import VerifyEmail from "./Pages/VerifyEmail";
 import ForgotPassword from "./Pages/ForgotPassword";
 import UpdatePassword from "./Pages/UpdatePassword";
 import About from "./Pages/About";
+import Contact from "./Pages/Contact";
 function App() {
   return (
     <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
@@ -25,6 +26,7 @@ function App() {
         <Route path="update-password" element={<OpenRoute><UpdatePassword></UpdatePassword></OpenRoute>} ></Route>
         <Route path="update-password/:id" element={<OpenRoute><UpdatePassword /></OpenRoute>}/>  
         <Route path="about" element={<OpenRoute><About /></OpenRoute>}/>  
+        <Route path="contact" element={<OpenRoute><Contact /></OpenRoute>}/>  
       </Routes>
       
       <Footer>

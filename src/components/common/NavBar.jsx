@@ -2,18 +2,19 @@ import React from 'react';
 import logo from "../../assets/Logo/Logo-Full-Light.png";
 import { Link, matchPath, useLocation } from 'react-router-dom';
 import { NavbarLinks } from '../../data/navbar-links';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {AiOutlineShoppingCart} from "react-icons/ai"
 import ProfileDropDown from '../core/Auth/ProfileDropDown';
 import {IoIosArrowDropdownCircle} from "react-icons/io"
 import {apiConnector} from '../../services/apiconnector'
 import { useState,useEffect } from 'react';
 import {categoryEndpoints} from '../../services/apis';
-
+import {logout} from "../../services/operations/authAPI" ;
 
 
 const NavBar = () => { 
     const {token} = useSelector((state)=>(state.auth)) ;
+    // const token = null ;
     const {user} = useSelector((state)=>(state.profile)) ;
     const {totalItems } = useSelector((state)=>(state.cart)) ;
 
@@ -38,7 +39,7 @@ const NavBar = () => {
         fetchSublinks();
     },[] )
 
-
+    const dispatch = useDispatch() ;
     const location = useLocation();
 
     const matchRoute = (route) => {
@@ -139,7 +140,15 @@ const NavBar = () => {
                             </div>
                         )
                     }
+                    {
+                        token !== null && (
+                            <button onClick={()=>(dispatch(logout()))} className='border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100 rounded-md'>
+                                    Log Out
+                            </button>
+                        )
+                    }
                 </div>
+                
             </div>
         </div>
     );

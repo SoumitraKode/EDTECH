@@ -41,3 +41,7 @@ export const ratingandreviewEndpoints = {
     GET_AVG_RATING_API : BASE_URL + "/course/getAverageRating",
     GET_REVIEW_API : BASE_URL + "/course/createRating",
 }
+
+export const contactusEndpoint = {
+    CONTACT_US_API: BASE_URL + "/reach/contact",
+  }
