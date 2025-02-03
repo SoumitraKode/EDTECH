@@ -140,13 +140,13 @@ const NavBar = () => {
                             </div>
                         )
                     }
-                    {
+                    {/* {
                         token !== null && (
                             <button onClick={()=>(dispatch(logout()))} className='border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100 rounded-md'>
                                     Log Out
                             </button>
                         )
-                    }
+                    } */}
                 </div>
                 
             </div>

@@ -59,7 +59,9 @@ export function login(email, password, navigate) {
           ? response.data.prev_User.image
           : `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.prev_User.FirstName} ${response.data.prev_User.LastName}`
         dispatch(setUser({ ...response.data.prev_User, image: userImage }))
-        localStorage.setItem("token", JSON.stringify(response.data.token))
+        // localStorage.setItem("token", JSON.stringify(response.data.token))
+        localStorage.setItem("token", JSON.stringify(response.data.token)) ;
+        localStorage.setItem("user", JSON.stringify(response.data.prev_User)) ;
         toast.success("Login Successful") ;
         navigate("/dashboard/my-profile") ;
       } catch (error) {

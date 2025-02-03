@@ -11,6 +11,9 @@ import ForgotPassword from "./Pages/ForgotPassword";
 import UpdatePassword from "./Pages/UpdatePassword";
 import About from "./Pages/About";
 import Contact from "./Pages/Contact";
+import Dashboard from "./Pages/Dashboard";
+import MyProfile from "../src/components/core/Dashboard/MyProfile";
+import PrivateRoute from "../src/components/core/Auth/PrivateRoute" ;
 function App() {
   return (
     <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
@@ -27,6 +30,11 @@ function App() {
         <Route path="update-password/:id" element={<OpenRoute><UpdatePassword /></OpenRoute>}/>  
         <Route path="about" element={<OpenRoute><About /></OpenRoute>}/>  
         <Route path="contact" element={<OpenRoute><Contact /></OpenRoute>}/>  
+        {/* <Route path="dashboard/my-profile" element={<MyProfile/>}/> */}
+        <Route element={<PrivateRoute><Dashboard/></PrivateRoute>}>
+            <Route path="dashboard/my-profile" element={<MyProfile/>}/>
+        </Route>
+      
       </Routes>
       
       <Footer>
