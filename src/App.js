@@ -14,6 +14,7 @@ import Contact from "./Pages/Contact";
 import Dashboard from "./Pages/Dashboard";
 import MyProfile from "../src/components/core/Dashboard/MyProfile";
 import PrivateRoute from "../src/components/core/Auth/PrivateRoute" ;
+import Settings from "./components/core/Dashboard/Settings";
 function App() {
   return (
     <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
@@ -33,6 +34,7 @@ function App() {
         {/* <Route path="dashboard/my-profile" element={<MyProfile/>}/> */}
         <Route element={<PrivateRoute><Dashboard/></PrivateRoute>}>
             <Route path="dashboard/my-profile" element={<MyProfile/>}/>
+            <Route path="dashboard/Settings" element={<Settings />} />
         </Route>
       
       </Routes>
