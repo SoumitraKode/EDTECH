@@ -34,6 +34,7 @@ export const courseEndpoints = {
     ADD_SUBSEC_API : BASE_URL + "/course/addSubSection",
     GET_ALL_COURSES_API : BASE_URL + "/course/getAllCourses",
     GET_COURSE_DETAILS_API : BASE_URL + "/course/getCourseDetails",
+    CREATE_RATING_API : BASE_URL + "/course/createRating",
 }
 
 export const ratingandreviewEndpoints = {
