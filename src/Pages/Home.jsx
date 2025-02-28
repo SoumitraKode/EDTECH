@@ -15,7 +15,7 @@ import TimelineRightSubpart from '../components/core/HomePage/TimelineRightSubpa
 import Features from "../components/core/HomePage/Features";
 import InstructorSection from '../components/core/HomePage/InstructorSection';
 import Explore from "../components/core/HomePage/Explore";
-
+import ReviewSlider from "../components/common/ReviewSlider"
 const Home = () => {
     return (
         <div>
@@ -178,7 +178,15 @@ const Home = () => {
                     </div>
                 </div>
                 {/* Reviews Section */}
-
+                  
+                    <div className=" mx-auto my-20  w-11/12 max-w-maxContent flex-col items-center justify-between gap-8 bg-richblack-900 text-white">
+                    {/* Reviws from Other Learner */}
+                    <h1 className="text-center text-4xl font-semibold mt-8">
+                    Reviews from other learners
+                    </h1>
+                    {/* <ReviewSlider /> */}
+                    <ReviewSlider></ReviewSlider>   
+                    </div>
                 <div>
                     
                 </div>

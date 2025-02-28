@@ -9,7 +9,7 @@ exports.auth = async(req,res,next)=>{
         // TokenArray = jwttoken.split(" ");
         const token = req.cookies.token 
                         || req.body.token 
-                        || req.header("Authorisation").replace("Bearer ", "");
+                        || req.header("Authorization").replace("Bearer ", "");
         
         // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNvdW1pdHJha29kZTIyQGdtYWlsLmNvbSIsImFjY291bnRUeXBlIjoiU3R1ZGVudCIsImlkIjoiNjczYWE3YmU4MzY5YjIyODQwYTcwM2MxIiwiaWF0IjoxNzMxOTAzOTIxLCJleHAiOjE3MzE5OTAzMjF9.FQD4JeJ_kFeDGl9gYGFOY6cSxilFXTC5orauFs00dC4";
 
@@ -55,6 +55,7 @@ exports.isStudent = async(req,res,next)=>{
             })
         }
         console.log("isStudent middleware Complete : ");
+        next() ;
         // ==>Yei Routes mei likh sakte hai call back funtin=on mei
         // return res.status(200).json({
         //     success:true,

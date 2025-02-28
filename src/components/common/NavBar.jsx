@@ -17,30 +17,41 @@ const NavBar = () => {
     // const token = null ;
     const {user} = useSelector((state)=>(state.profile)) ;
     const {totalItems } = useSelector((state)=>(state.cart)) ;
-
-    
+    const [loading, setLoading] = useState(false)
+    const location = useLocation() ;
 
     const [subLinks, setSubLinks]  = useState([]);
 
-    const fetchSublinks = async() => {
-        try{
-            const result = await apiConnector("GET", categoryEndpoints.SHOW_ALLCATEGORIES_API);
-            console.log("Printing Sublinks result:" , result);
-            setSubLinks(result.data.data);
+    // const fetchSublinks = async() => {
+    //     try{
+    //         const result = await apiConnector("GET", categoryEndpoints.SHOW_ALLCATEGORIES_API);
+    //         console.log("Printing Sublinks result:" , result);
+    //         setSubLinks(result.data.data);
             
-        }
-        catch(error) {
-            console.log("Could not fetch the category list");
-        }
-    }
+    //     }
+    //     catch(error) {
+    //         console.log("Could not fetch the category list");
+    //     }
+    // }
 
 
-    useEffect( () => {
-        fetchSublinks();
-    },[] )
+    useEffect(() => {
+        ;(async () => {
+          setLoading(true)
+          try {
+            const res = await apiConnector("GET", categoryEndpoints.SHOW_ALLCATEGORIES_API)
+            console.log("RES :",res);
+            setSubLinks(res.data.data) ;
+            console.log("SUB-LINKS :",subLinks);
+          } catch (error) {
+            console.log("Could not fetch Categories.", error)
+          }
+          setLoading(false)
+        })()
+      }, [])
 
     const dispatch = useDispatch() ;
-    const location = useLocation();
+    // const location = useLocation();
 
     const matchRoute = (route) => {
         return matchPath({ path: route }, location.pathname);
@@ -73,11 +84,16 @@ const NavBar = () => {
                                                             {
                                                                 subLinks.length > 0 ? (
                                                                         subLinks.map( (subLink, index) => (
-                                                                            <Link to={`${subLink.name}`} key={index}>
+                                                                            <Link to={`/catalog/${subLink.name
+                                                                                    .split(" ")
+                                                                                    .join("-")
+                                                                                    .toLowerCase()}`} key={index}
+                                                                                    // className="rounded-lg bg-transparent py-4 pl-4 hover:bg-richblack-50"
+                                                                                    >
                                                                                 <p>{subLink.name}</p>
                                                                             </Link>
                                                                         ) )
-                                                                ) : (<div></div>)
+                                                                ) : (<p className="text-center">No Courses Found</p>)
                                                             }
                                                     </div>
                                                 
@@ -103,7 +119,7 @@ const NavBar = () => {
                     {
                        user && user?.accountType !== "Instructor" && (
                         <Link to="/dashboard/cart" className='relative'>
-                            <AiOutlineShoppingCart />
+                            <AiOutlineShoppingCart>
                             {
                                 totalItems>0 && (
                                     <div>
@@ -111,6 +127,7 @@ const NavBar = () => {
                                     </div>
                                 )
                             }
+                            </AiOutlineShoppingCart>
                         </Link>
                        ) 
                     }

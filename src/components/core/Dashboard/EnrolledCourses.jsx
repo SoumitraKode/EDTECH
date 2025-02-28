@@ -61,7 +61,7 @@ export default function EnrolledCourses() {
                 }}
               >
                 <img
-                  src={course.thumbnail}
+                  src={course.thumbNail}
                   alt="course_img"
                   className="h-14 w-14 rounded-lg object-cover"
                 />

@@ -2,6 +2,7 @@ import { toast } from "react-hot-toast"
 
 import { updateCompletedLectures } from "../../slices/viewCourseSlice"
 // import { setLoading } from "../../slices/profileSlice";
+// import { apiConnector } from "../apiconnector"
 import { apiConnector } from "../apiconnector"
 import { courseEndpoints } from "../apis"
 // import { ratingandreviewEndpoints } from "../apis"
@@ -11,18 +12,23 @@ const {
   SHOW_ALLCATEGORIES_API,
   GET_ALL_COURSES_API,
   CREATE_COURSE_API,
-  // EDIT_COURSE_API, //not Yet Implemented in Backnend
+  //Implemented
+  EDIT_COURSE_API,
   ADD_SECTION_API,
   ADD_SUBSEC_API,
   UPDATE_SECTION_API,
   UPDATE_SUBSEC_API,
   DEL_SECTION_API,
   DEL_SUBSEC_API,
-  // GET_ALL_INSTRUCTOR_COURSES_API,//Not Yet Implemented
-  // DELETE_COURSE_API,//Not Yet Implemented
-  // GET_FULL_COURSE_DETAILS_AUTHENTICATED,//Not Yet Implemneted
+  // Implemented
+  GET_ALL_INSTRUCTOR_COURSES_API,
+  // Implemented
+  DELETE_COURSE_API,
+  // Implemneted
+  GET_FULL_COURSE_DETAILS_AUTHENTICATED,
   CREATE_RATING_API,
-  // LECTURE_COMPLETION_API,//Not Yet Implemented
+  //Not Yet Implemented
+  LECTURE_COMPLETION_API,
 } = courseEndpoints
 
 export const getAllCourses = async () => {
@@ -47,9 +53,7 @@ export const fetchCourseDetails = async (courseId) => {
   //   dispatch(setLoading(true));
   let result = null
   try {
-    const response = await apiConnector("POST", GET_COURSE_DETAILS_API, {
-      courseId,
-    })
+    const response = await apiConnector("POST", GET_COURSE_DETAILS_API, {courseId})
     console.log("GET_COURSE_DETAILS_API API RESPONSE............", response)
 
     if (!response.data.success) {
@@ -70,7 +74,7 @@ export const fetchCourseDetails = async (courseId) => {
 export const fetchCourseCategories = async () => {
   let result = []
   try {
-    const response = await apiConnector("GET", SHOW_ALLCATEGORIES_API)
+    const response = await apiConnector("GET", categoryEndpoints.SHOW_ALLCATEGORIES_API)
     console.log("SHOW_ALLCATEGORIES_API API RESPONSE............", response)
     if (!response?.data?.success) {
       throw new Error("Could Not Fetch Course Categories")
@@ -90,7 +94,7 @@ export const addCourseDetails = async (data, token) => {
   try {
     const response = await apiConnector("POST", CREATE_COURSE_API, data, {
       "Content-Type": "multipart/form-data",
-      Authorisation: `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     })
     console.log("CREATE COURSE API RESPONSE............", response)
     if (!response?.data?.success) {
@@ -112,8 +116,8 @@ export const editCourseDetails = async (data, token) => {
   const toastId = toast.loading("Loading...")
   try {
     const response = await apiConnector("POST", EDIT_COURSE_API, data, {
-      "Content-Type": "multipart/form-data",
-      Authorisation: `Bearer ${token}`,
+      // "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token}`,
     })
     console.log("EDIT COURSE API RESPONSE............", response)
     if (!response?.data?.success) {
@@ -134,15 +138,17 @@ export const createSection = async (data, token) => {
   let result = null
   const toastId = toast.loading("Loading...")
   try {
-    const response = await apiConnector("POST", `ADD_SECTION_API`, data, {
+    const response = await apiConnector("POST", courseEndpoints.ADD_SECTION_API, data, {
       Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
     })
     console.log("CREATE SECTION API RESPONSE............", response)
     if (!response?.data?.success) {
       throw new Error("Could Not Create Section")
     }
     toast.success("Course Section Created")
-    result = response?.data?.updatedCourse
+    result = response?.data?.updatedCourse ;
+    // return result ;
   } catch (error) {
     console.log("CREATE SECTION API ERROR............", error)
     toast.error(error.message)
@@ -164,7 +170,8 @@ export const createSubSection = async (data, token) => {
       throw new Error("Could Not Add Lecture")
     }
     toast.success("Lecture Added")
-    result = response?.data?.data
+    result = response?.data?.updatedSection ;
+    
   } catch (error) {
     console.log("CREATE SUB-SECTION API ERROR............", error)
     toast.error(error.message)
@@ -222,7 +229,7 @@ export const deleteSection = async (data, token) => {
   let result = null
   const toastId = toast.loading("Loading...")
   try {
-    const response = await apiConnector("POST", DEL_SECTION_API, data, {
+    const response = await apiConnector("DELETE", DEL_SECTION_API, data, {
       Authorization: `Bearer ${token}`,
     })
     console.log("DELETE SECTION API RESPONSE............", response)
@@ -243,7 +250,7 @@ export const deleteSubSection = async (data, token) => {
   let result = null
   const toastId = toast.loading("Loading...")
   try {
-    const response = await apiConnector("POST", DEL_SUBSEC_API, data, {
+    const response = await apiConnector("DELETE", DEL_SUBSEC_API, data, {
       Authorization: `Bearer ${token}`,
     })
     console.log("DELETE SUB-SECTION API RESPONSE............", response)
@@ -340,12 +347,13 @@ export const getFullDetailsOfCourse = async (courseId, token) => {
 // mark a lecture as complete
 export const markLectureAsComplete = async (data, token) => {
   let result = null
-  console.log("mark complete data", data)
-  const toastId = toast.loading("Loading...")
+  console.log("mark complete data In API Function :", data) ;
+  const toastId = toast.loading("Loading...") ;
+  console.log("token in API Function : ",token) ;
   try {
     const response = await apiConnector("POST", LECTURE_COMPLETION_API, data, {
       Authorization: `Bearer ${token}`,
-    })
+    }) ;
     console.log(
       "MARK_LECTURE_AS_COMPLETE_API API RESPONSE............",
       response
@@ -370,6 +378,7 @@ export const createRating = async (data, token) => {
   const toastId = toast.loading("Loading...")
   let success = false
   try {
+    console.log("data in Create Rating API....",data) ;
     const response = await apiConnector("POST", CREATE_RATING_API, data, {
       Authorization: `Bearer ${token}`,
     })

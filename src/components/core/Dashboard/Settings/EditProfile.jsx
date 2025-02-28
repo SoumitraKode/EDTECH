@@ -22,6 +22,7 @@ export default function EditProfile() {
   const submitProfileForm = async (data) => {
     // console.log("Form Data - ", data)
     try {
+      console.log("Data in Update PRofile :",data);
       dispatch(updateProfile(token, data))
     } catch (error) {
       console.log("ERROR MESSAGE - ", error.message)
@@ -29,6 +30,9 @@ export default function EditProfile() {
   }
   return (
     <>
+    {
+      console.log("USer in Edit Profile :",user)
+    }
       <form onSubmit={handleSubmit(submitProfileForm)}>
         {/* Profile Information */}
         <div className="my-10 flex flex-col gap-y-6 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-8 px-12">
@@ -42,33 +46,33 @@ export default function EditProfile() {
               </label>
               <input
                 type="text"
-                name="firstName"
-                id="firstName"
+                name="FirstName"
+                id="FirstName"
                 placeholder="Enter first name"
                 className="form-style"
-                {...register("firstName", { required: true })}
-                defaultValue={user?.firstName}
+                {...register("FirstName", { required: true })}
+                defaultValue={user?.FirstName}
               />
-              {errors.firstName && (
+              {errors.FirstName && (
                 <span className="-mt-1 text-[12px] text-yellow-100">
                   Please enter your first name.
                 </span>
               )}
             </div>
             <div className="flex flex-col gap-2 lg:w-[48%]">
-              <label htmlFor="lastName" className="lable-style">
+              <label htmlFor="LastName" className="lable-style">
                 Last Name
               </label>
               <input
                 type="text"
-                name="lastName"
-                id="lastName"
+                name="LastName"
+                id="LastName"
                 placeholder="Enter first name"
                 className="form-style"
-                {...register("lastName", { required: true })}
-                defaultValue={user?.lastName}
+                {...register("LastName", { required: true })}
+                defaultValue={user?.LastName}
               />
-              {errors.lastName && (
+              {errors.LastName && (
                 <span className="-mt-1 text-[12px] text-yellow-100">
                   Please enter your last name.
                 </span>
@@ -83,10 +87,10 @@ export default function EditProfile() {
               </label>
               <input
                 type="date"
-                name="dateOfBirth"
-                id="dateOfBirth"
+                name="dateofBirth"
+                id="dateofBirth"
                 className="form-style"
-                {...register("dateOfBirth", {
+                {...register("dateofBirth", {
                   required: {
                     value: true,
                     message: "Please enter your Date of Birth.",
@@ -96,11 +100,11 @@ export default function EditProfile() {
                     message: "Date of Birth cannot be in the future.",
                   },
                 })}
-                defaultValue={user?.additionalDetails?.dateOfBirth}
+                defaultValue={user?.additionalDetails?.dateofBirth}
               />
-              {errors.dateOfBirth && (
+              {errors.dateofBirth && (
                 <span className="-mt-1 text-[12px] text-yellow-100">
-                  {errors.dateOfBirth.message}
+                  {errors.dateofBirth.message}
                 </span>
               )}
             </div>
@@ -139,11 +143,11 @@ export default function EditProfile() {
               </label>
               <input
                 type="tel"
-                name="contactNumber"
-                id="contactNumber"
+                name="contactNo"
+                id="contactNo"
                 placeholder="Enter Contact Number"
                 className="form-style"
-                {...register("contactNumber", {
+                {...register("contactNo", {
                   required: {
                     value: true,
                     message: "Please enter your Contact Number.",
@@ -151,11 +155,11 @@ export default function EditProfile() {
                   maxLength: { value: 12, message: "Invalid Contact Number" },
                   minLength: { value: 10, message: "Invalid Contact Number" },
                 })}
-                defaultValue={user?.additionalDetails?.contactNumber}
+                defaultValue={user?.additionalDetails?.contactNo}
               />
-              {errors.contactNumber && (
+              {errors.contactNo && (
                 <span className="-mt-1 text-[12px] text-yellow-100">
-                  {errors.contactNumber.message}
+                  {errors.contactNo.message}
                 </span>
               )}
             </div>

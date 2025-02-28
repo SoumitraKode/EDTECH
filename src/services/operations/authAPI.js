@@ -1,7 +1,9 @@
 import { toast } from "react-hot-toast"
 import { setLoading, setToken } from "../../slices/authSlice"
 import { userEndpoints } from "../apis";
-import {apiConnector} from "../apiconnector"
+// import {apiConnector} from "../apiconnector"
+// import apiConnector from "../apiconnector"
+import { apiConnector } from "../apiconnector";
 import { setUser } from "../../slices/profileSlice";
 import {  } from "react-router-dom";
 // import { userEndpoints } from "../apis";
@@ -154,29 +156,33 @@ export function resetPasswordToken(email,setEmailSent,navigate){
   }
 }
 
-export function resetPassword(password,confirmPassword,token,navigate){
-  
-  return async (dispatch)=>{
+export function resetPassword(password, confirmPassword, token, navigate) {
+  return async (dispatch) => {
     try {
-        const response = apiConnector("POST",userEndpoints.RESET_PASS_API,{
-          password,
-          confirmPassword,
-          token,
-        }) ;
-    
-        console.log("Update Password Response ...",response) ;
-    
-        if(!response.data.success){
-          throw new Error(response.data.message) ;
-        }
-        console.log("Password updated successfully : ") ;
-        toast.success("Password Updated successfully") ;
-        
-      } catch (error) {
-        console.log("Error in Updating Password............", error)
-        toast.error("Update Password failed")
-        navigate("/signup") ;
+      dispatch(setLoading(true)); // Ensure loading state is managed properly
+      
+      // Await the API call
+      const response = await apiConnector("POST", userEndpoints.RESET_PASS_API, {
+        password,
+        confirmPassword,
+        token,
+      });
+
+      console.log("Update Password Response ...", response);
+
+      if (!response.data.success) {
+        throw new Error(response.data.message);
       }
-      dispatch(setLoading(false)) ;
-  }
+
+      console.log("Password updated successfully");
+      toast.success("Password Updated successfully");
+      navigate("/login"); // Navigate after successful update
+    } catch (error) {
+      console.log("Error in Updating Password............", error);
+      toast.error("Update Password failed");
+      navigate("/signup");
+    } finally {
+      dispatch(setLoading(false)); // Ensure loading state is reset
+    }
+  };
 }

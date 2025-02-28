@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 
 import CountryCode from "../../data/countrycode.json"
-import { apiConnector } from "../../services/apiconnector"
-import { contactusEndpoint } from "../../services/apis"
+import {apiConnector}  from "../../services/apiconnector"
+import {contactusEndpoint}  from "../../services/apis"
 
 const ContactUsForm = () => {
   const [loading, setLoading] = useState(false)
@@ -15,15 +15,16 @@ const ContactUsForm = () => {
   } = useForm()
 
   const submitContactForm = async (data) => {
-    // console.log("Form Data - ", data)
+    console.log("Contact Form Data - ", data);
     try {
       setLoading(true)
+      console.log("In API Connector") ;
       const res = await apiConnector(
         "POST",
         contactusEndpoint.CONTACT_US_API,
         data
       )
-      // console.log("Email Res - ", res)
+      console.log("Email Res - ", res)
       setLoading(false)
     } catch (error) {
       console.log("ERROR MESSAGE - ", error.message)
@@ -114,7 +115,7 @@ const ContactUsForm = () => {
               id="firstname"
               placeholder="Enter first name"
               className="form-style"
-              {...register("countrycode", { required: true })}
+              // {...register("countrycode", { required: true })}
             >
               {CountryCode.map((ele, i) => {
                 return (

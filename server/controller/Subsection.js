@@ -1,5 +1,8 @@
 const SubSection = require("../models/SubSection") ;
+// import {SubSection} from "../models/Subsection";
+
 const Section = require("../models/Section");
+// require("../models/SubSection") ;
 const uploadImageToCloudinary = require("../utils/imageUploader");
 const uploadVideoToCloudinary = require("../utils/videoUploader");
 
@@ -73,7 +76,7 @@ const uploadVideoToCloudinary = require("../utils/videoUploader");
 exports.createSubsection = async (req, res) => {
     try {
         const { title, description, sectionId } = req.body;
-        const video = req.files.VideoFile;
+        const video = req.files.video;
 
         if (!title || !video || !description || !sectionId) {
             return res.status(400).json({
@@ -119,15 +122,15 @@ exports.createSubsection = async (req, res) => {
 exports.updateSubsection = async (req,res)=>{
     try {
         //Fetch Data ==>Currently we can only update The Name
-        const{title , description,subSectionId} = req.body ;
-        
-        if(!subSectionId){
+        const{title , description,subSectionId,sectionId} = req.body ;
+        const Subsection = await SubSection.findOne({_id:subSectionId});
+        if(!Subsection){
             return res.status(400).json({
                 success:false,
-                message:"Subsection Id is neccessary :",
+                message:"Subsection Not Found :",
             });
         }
-        const Subsection = await SubSection.findOne({_id:subSectionId});
+        
         //Validate
         if (title !== undefined) {
             Subsection.title = title
@@ -166,12 +169,14 @@ exports.updateSubsection = async (req,res)=>{
             Subsection.timeDuration = `${uploadDetails.duration}`
           }
       
-        await Subsection.save()
+        await Subsection.save();
+        const updatedSection = await Section.findById(sectionId).populate("subSection") ;
         //Return res
+        console.log("updated Section : ",updatedSection) ;
         return res.status(200).json({
             success:true,
             message:"Subsection Updated Successfully",
-            updated_Subsection:Subsection,
+            data:updatedSection,
         });
 
     } catch (error) {
@@ -190,7 +195,7 @@ exports.deleteSubsection = async (req,res)=>{
     try {
         //Fetch data => Assuming that id is sent in Params
         //######YOU MIGHT MAKE A MISTAKE HERE BY TAKING IT BY req.body ######
-        const {subSectionId} = req.body;
+        const {subSectionId,sectionId } = req.body;
 
         //Validate Data
         if(!subSectionId){
@@ -206,8 +211,10 @@ exports.deleteSubsection = async (req,res)=>{
         //we have to delete this subsection ka reference saved in the section  reference array in section scheema
         //==>>
         //return res
+        const updatedSection = await Section.findById(sectionId).populate("subSection") ;
         return res.status(200).json({
             success:true,
+            data : updatedSection,
             message:"Subsection deleted Successfully",
         });
 

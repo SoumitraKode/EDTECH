@@ -10,7 +10,7 @@ import LearningGrid from "../components/core/AboutPage/LearningGrid"
 import Quote from "../components/core/AboutPage/Quote"
 import StatsComponenet from "../components/core/AboutPage/Stats"
 import HighlighText from "../components/core/HomePage/HighlighText"
-
+import ReviewSlider from "../components/common/ReviewSlider"
 
 const About = () => {
   return (
@@ -108,12 +108,13 @@ const About = () => {
         <ContactFormSection />
       </section>
 
-      <div className="relative mx-auto my-20 flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8 bg-richblack-900 text-white">
+      <div className="mx-auto w-11/12">
         {/* Reviws from Other Learner */}
-        <h1 className="text-center text-4xl font-semibold mt-8">
+        <h1 className="text-center text-white py-16 text-4xl font-semibold mt-8">
           Reviews from other learners
         </h1>
         {/* <ReviewSlider /> */}
+        <ReviewSlider className="py-10"></ReviewSlider>
       </div>
       {/* <Footer /> */}
     </div>
