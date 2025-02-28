@@ -14,7 +14,7 @@ const cookieParser = require("cookie-parser") ;
 const cors = require("cors") ;
 // Allow multiple origins dynamically
 app.use(cors({
-    origin:"https://studynotion-seven-sigma.vercel.app/",
+    origin:"*",
 }))
 //connecttion to cloudinary
 const cloudinary = require("./config/cloudinary") ;
