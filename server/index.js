@@ -12,13 +12,22 @@ databaseConnection.dbConnect() ; //connecttion to DataBase
 
 const cookieParser = require("cookie-parser") ;
 const cors = require("cors") ;
-const corsOptions = {
-    origin: [ 'https://studynotion-frontend-wine.vercel.app'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true
-  };
+// Allow multiple origins dynamically
+const allowedOrigins = [
+    "http://localhost:3000",  // Development frontend
+    "https://studynotion-seven-sigma.vercel.app",  // Deployed frontend
+  ];
   
-  app.use(cors(corsOptions));
+  app.use(cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, // Allow cookies and authorization headers
+  }));
 //connecttion to cloudinary
 const cloudinary = require("./config/cloudinary") ;
 cloudinary.cloudinaryConnect();//conection to cloudinary
