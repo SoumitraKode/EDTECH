@@ -10,7 +10,7 @@ const mailSender = require("../utils/mailSender");
 const passwordUpdated = require("../mail/templates/passwordUpdate");
 //sign Scchema
 const jwt = require("jsonwebtoken");
-const { FaHashnode } = require("react-icons/fa6");
+// const { FaHashnode } = require("react-icons/fa6");
 require("dotenv").config();
 
 
