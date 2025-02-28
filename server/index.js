@@ -13,7 +13,7 @@ databaseConnection.dbConnect() ; //connecttion to DataBase
 const cookieParser = require("cookie-parser") ;
 const cors = require("cors") ;
 const corsOptions = {
-    origin: ['http://localhost:3000', 'https://studynotion-frontend-wine.vercel.app'],
+    origin: [ 'https://studynotion-frontend-wine.vercel.app'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
   };
