@@ -13,21 +13,9 @@ databaseConnection.dbConnect() ; //connecttion to DataBase
 const cookieParser = require("cookie-parser") ;
 const cors = require("cors") ;
 // Allow multiple origins dynamically
-const allowedOrigins = [
-    "http://localhost:3000",  // Development frontend
-    "https://studynotion-seven-sigma.vercel.app",  // Deployed frontend
-  ];
-  
-  app.use(cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true, // Allow cookies and authorization headers
-  }));
+app.use(cors({
+    origin:"https://studynotion-seven-sigma.vercel.app/",
+}))
 //connecttion to cloudinary
 const cloudinary = require("./config/cloudinary") ;
 cloudinary.cloudinaryConnect();//conection to cloudinary
