@@ -11,7 +11,7 @@ const databaseConnection = require("./config/database");
 databaseConnection.dbConnect() ; //connecttion to DataBase
 
 const cookieParser = require("cookie-parser") ;
-const cors = require("cors") ;
+// const cors = require("cors") ;
 // const corsOptions = {
 //     origin: ['http://localhost:3000', 'https://studynotion-frontend-wine.vercel.app'],
 //     methods: ['GET', 'POST', 'PUT', 'DELETE'],

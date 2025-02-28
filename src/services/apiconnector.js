@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 export const axiosInstance = axios.create({});
 // const {token} = useSelector((state)=>(state.auth)) ;    
 export const apiConnector = (method, url, bodyData, headers, params) => {
-    // console.log("URL :",url) ;
+    console.log("URL :",url) ;
     // console.log("bodyData :",bodyData) ;
     return axiosInstance({
         method:`${method}`,
