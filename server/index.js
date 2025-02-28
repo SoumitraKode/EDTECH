@@ -13,9 +13,26 @@ databaseConnection.dbConnect() ; //connecttion to DataBase
 const cookieParser = require("cookie-parser") ;
 const cors = require("cors") ;
 // Allow multiple origins dynamically
-app.use(cors({
-    origin:"*",
-}))
+const allowedOrigins = [
+    "http://localhost:3000", // Dev frontend
+    "https://studynotion-seven-sigma.vercel.app", // Deployed frontend
+    "https://studynotion-soumitras-projects-16298cc8.vercel.app/",
+    "https://studynotion-git-main-soumitras-projects-16298cc8.vercel.app/",
+];
+
+app.use(
+    cors({
+        origin: function (origin, callback) {
+            if (!origin || allowedOrigins.includes(origin)) {
+                callback(null, true);
+            } else {
+                callback(new Error("Not allowed by CORS"));
+            }
+        },
+        credentials: true, // Required for cookies/auth
+    })
+);
+
 //connecttion to cloudinary
 const cloudinary = require("./config/cloudinary") ;
 cloudinary.cloudinaryConnect();//conection to cloudinary
@@ -31,12 +48,12 @@ app.use(express.json()) ;
 app.use(cookieParser()) ;
 
 
-app.use(
-    cors({
-        origin:"http://localhost:3000",
-        credentials:true,
-    })
-)
+// app.use(
+//     cors({
+//         origin:"http://localhost:3000",
+//         credentials:true,
+//     })
+// )
 
 app.use(
     fileUpload({
